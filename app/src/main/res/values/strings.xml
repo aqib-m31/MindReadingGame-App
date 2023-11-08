@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Mind Reading Game</string>
+    <string name="instruction_message">Think of a Number\nbetween 1 and 31</string>
+    <string name="start_game">Start Game</string>
+    <string name="result_message">The number is %1$s</string>
+    <string name="play_again">Play Again!</string>
+    <string name="question_text">Does that number exist in this card?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="restart">Restart</string>
+</resources>
