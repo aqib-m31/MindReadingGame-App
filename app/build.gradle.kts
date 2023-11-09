@@ -1,9 +1,31 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
-
 android {
+    signingConfigs {
+        val keystoreProperties = Properties()
+
+        try {
+            keystoreProperties.load(project.rootProject.file("keystore.properties").inputStream())
+        } catch (e: Exception) {
+            throw RuntimeException("Error loading keystore properties: $e")
+        }
+        getByName("debug") {
+            storeFile = file(keystoreProperties["keyStore"] as String)
+            storePassword = keystoreProperties["storePass"] as String
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPass"] as String
+        }
+        create("release") {
+            storePassword = keystoreProperties["storePass"] as String
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPass"] as String
+            storeFile = file(keystoreProperties["keyStore"] as String)
+        }
+    }
     namespace = "com.example.mindreadinggame"
     compileSdk = 34
 
@@ -18,6 +40,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        signingConfig = signingConfigs.getByName("debug")
     }
 
     buildTypes {
